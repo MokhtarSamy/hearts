@@ -4,7 +4,7 @@
             "outputFile": "com.example.smartwatchapp-mergeDebugResources-44:/values-sw180dp-notround-v23/values-sw180dp-notround-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-3\\e32b8ee3bfc0fa4a5e38a53348ec9fde\\transformed\\wear-1.2.0\\res\\values-sw180dp-notround-v23\\values-sw180dp-notround-v23.xml",
+                    "source": "C:\\Users\\BUNICE\\.gradle\\caches\\transforms-3\\e32b8ee3bfc0fa4a5e38a53348ec9fde\\transformed\\wear-1.2.0\\res\\values-sw180dp-notround-v23\\values-sw180dp-notround-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

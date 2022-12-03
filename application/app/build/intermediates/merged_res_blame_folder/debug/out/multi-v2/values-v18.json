@@ -4,7 +4,7 @@
             "outputFile": "com.example.smartwatchapp-mergeDebugResources-44:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-3\\86f43ee4b283839cbfaff6e8d237ef19\\transformed\\appcompat-1.5.1\\res\\values-v18\\values-v18.xml",
+                    "source": "C:\\Users\\BUNICE\\.gradle\\caches\\transforms-3\\86f43ee4b283839cbfaff6e8d237ef19\\transformed\\appcompat-1.5.1\\res\\values-v18\\values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
