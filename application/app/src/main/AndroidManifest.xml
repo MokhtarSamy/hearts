@@ -22,6 +22,8 @@
 
     <!-- For receiving heart rate data. -->
     <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- When an app targets Android 11 (API level 30) or higher and queries for information about
          the other apps that are installed on a device, the system filters this information by
@@ -33,7 +35,7 @@
     </queries>
 
     <application
-        android:name="com.example.measuredata.MainApplication"
+        android:name="com.example.smartwatchapp.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -49,7 +51,7 @@
             android:value="true" />
 
         <activity
-            android:name="com.example.measuredata.MainActivity"
+            android:name="com.example.smartwatchapp.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
