@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.measuredata.app-mergeDebugResources-34:/values-sw210dp-v13/values-sw210dp-v13.xml",
+            "outputFile": "com.example.smartwatchapp-mergeDebugResources-44:/values-sw210dp-v13/values-sw210dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-3\\2c951f437604cc24abf1e076bc77974f\\transformed\\wear-1.2.0\\res\\values-sw210dp-v13\\values-sw210dp-v13.xml",
+                    "source": "C:\\Users\\admin\\.gradle\\caches\\transforms-3\\e32b8ee3bfc0fa4a5e38a53348ec9fde\\transformed\\wear-1.2.0\\res\\values-sw210dp-v13\\values-sw210dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

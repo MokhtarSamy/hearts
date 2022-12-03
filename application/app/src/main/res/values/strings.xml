@@ -20,4 +20,7 @@
     <string name="measure_status">Status: %1$s</string>
     <string name="last_measured">Last measured:</string>
     <string name="heart_rate_not_available">Heart rate not available on this device</string>
+    <string name="hello_world">Hello Square World!</string>
+    <string name="upload_data">Upload data</string>
+    <string name="retrieve_data">Retrieve data</string>
 </resources>
