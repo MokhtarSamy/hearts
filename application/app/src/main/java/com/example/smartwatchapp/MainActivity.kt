@@ -31,6 +31,7 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+//le main
 
 private lateinit var analytics: FirebaseAnalytics
 
@@ -50,9 +51,10 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
         analytics = Firebase.analytics
         uploadData()
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         permissionLauncher =

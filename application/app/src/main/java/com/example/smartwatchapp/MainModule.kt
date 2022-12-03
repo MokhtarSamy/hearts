@@ -26,6 +26,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+//le client
 /**
  * Hilt module that provides singleton (application-scoped) objects.
  */

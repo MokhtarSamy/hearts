@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//fonctions qui vont recup données du capteur
 package com.example.smartwatchapp
 
 import android.util.Log

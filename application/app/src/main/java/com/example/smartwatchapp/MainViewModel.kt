@@ -30,6 +30,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+//pour construire les vues
+
 /**
  * Holds most of the interaction logic and UI state for the app.
  */
