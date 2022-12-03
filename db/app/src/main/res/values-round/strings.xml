@@ -1,5 +1,0 @@
-<resources>
-    <string name="hello_world">Hello Round World!</string>
-    <string name="upload_data">Upload data</string>
-    <string name="retrieve_data">Retrieve data</string>
-</resources>
