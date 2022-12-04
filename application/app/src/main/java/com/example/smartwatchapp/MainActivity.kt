@@ -31,7 +31,7 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-//le main c'est chouette
+
 
 private lateinit var analytics: FirebaseAnalytics
 
