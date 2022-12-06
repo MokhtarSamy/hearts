@@ -1,0 +1,11 @@
+<div class="chart-container">
+  <ul>
+    <li *ngFor="let user of users | async">
+      {{ "Name: " + user['name'] }}
+      {{ "City: " + user['city'] }}
+      {{ "Age: " + user['age'] }}
+    </li>
+  </ul>
+  <p>Moyenne fréquence cardiaque</p>
+  <canvas  id="MyChart" >{{ chart }}</canvas>
+</div>
