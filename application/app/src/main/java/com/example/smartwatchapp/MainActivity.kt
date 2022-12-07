@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         analytics = Firebase.analytics
         uploadData()
+        readData()
         setContentView(binding.root)
 
 
