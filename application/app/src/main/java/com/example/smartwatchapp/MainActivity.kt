@@ -23,6 +23,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.health.services.client.data.DataType
+import androidx.health.services.client.data.ExerciseConfig
+import androidx.health.services.client.data.ExerciseGoal
+import androidx.health.services.client.data.ExerciseType
 import androidx.lifecycle.lifecycleScope
 import com.example.smartwatchapp.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -30,7 +34,9 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
+import java.lang.reflect.Array.set
+import java.sql.Time
+import java.util.*
 
 
 private lateinit var analytics: FirebaseAnalytics
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         analytics = Firebase.analytics
         uploadData()
         setContentView(binding.root)
+
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
@@ -104,6 +111,19 @@ class MainActivity : AppCompatActivity() {
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
 
+    /*
+    override fun onPause(){
+        super.onPause()
+        Log.d(TAG, "je suis en pause")
+        super.onResume()
+        Log.d(TAG, "je suis en resume")
+        //super.onStart()
+        //.d(TAG, "je suis en start")
+    }
+    */
+
+
+
     private fun uploadData() {
         binding!!.btnUploadData.setOnClickListener {
             // create a dummy data
@@ -123,6 +143,8 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
+
+
     private fun readData(){
         binding!!.btnReadData.setOnClickListener {
             FirebaseUtils().fireStoreDatabase.collection("users")
