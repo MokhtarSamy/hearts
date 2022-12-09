@@ -23,6 +23,8 @@ import androidx.health.services.client.data.ExerciseConfig
 import androidx.health.services.client.data.ExerciseType
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.QuerySnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -73,12 +75,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun upload(rate: Double, date: String, time: String, moment: String){
+    private fun uploadRate(rate: Double, date: String, time: String, moment: String, idSession: String){
         val hashMap = hashMapOf<String, Any>(
             "rate" to rate,
             "date" to date,
             "time" to time,
-            "moment" to moment
+            "moment" to moment,
+            "idSession" to idSession
         )
         FirebaseUtils().fireStoreDatabase.collection("hearts")
             .add(hashMap)
@@ -90,9 +93,42 @@ class MainViewModel @Inject constructor(
             }
     }
 
+    private fun uploadStat(avg: Double, min: Double, max: Double, idSession: String){
+
+        val hashMap = hashMapOf<String, Any>(
+            "idSession" to idSession,
+            "avg" to avg,
+            "min" to min,
+            "max" to max
+        )
+        // use the add() method to create a document inside users collection
+        FirebaseUtils().fireStoreDatabase.collection("stats")
+            .add(hashMap)
+            .addOnSuccessListener {
+                Log.d(TAG, "Added stat document with ID ${it.id}")
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error adding stat document $exception")
+            }
+
+    }
+
+
+
+
     @ExperimentalCoroutinesApi
     suspend fun measureHeartRate() {
         var count = 0
+        var idSession = ""
+
+        var rates = arrayOf<Double>()
+        var datesStats = arrayOf<String>()
+        var heuresStats = arrayOf<String>()
+        var momentStats = arrayOf<String>()
+        var avg = 0.0
+        var min = 0.0
+        var max = 0.0
+
         healthServicesManager.heartRateMeasureFlow().collect {
             when (it) {
                 is MeasureMessage.MeasureAvailability -> {
@@ -111,12 +147,30 @@ class MainViewModel @Inject constructor(
                     var date = formattedDate.split(' ')[0]
                     var heure = formattedDate.split(' ')[1]
                     var moment = formattedDate.split(' ')[2]
+
+                    var avg = 0.0
+                    var min = 0.0
+                    var max = 0.0
+
                     val bpm = it.data.last().value
+                    if(count==0){
+                        idSession = date+heure+moment
+                    }
                     if(bpm!=0.0) {
                         count += 1
                     }
-                    if((count%30 === 0) && (bpm != 0.0)) {
-                        upload(bpm, date, heure, moment)
+                    if((count%5 === 0) && (bpm != 0.0)) {
+                        uploadRate(bpm, date, heure, moment, idSession)
+                        /*
+                        rates.plus(bpm)
+                        datesStats.plus(date)
+                        heuresStats.plus(heure)
+                        momentStats.plus(moment)
+                        avg = rates.average()
+                        min = rates.min()
+                        max = rates.max()
+                        uploadStat(avg, min, max, idSession)
+                         */
                     }
 
 
@@ -139,7 +193,7 @@ class MainViewModel @Inject constructor(
                     Log.d(TAG, "Data update: $bpmstart")
                     _heartRateBpmStats.value = bpmstart.getLong(new TemportalField)
                 }*/
-                else -> {}
+                else -> { }
             }
         }
     }

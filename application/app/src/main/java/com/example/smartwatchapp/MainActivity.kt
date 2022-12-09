@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         analytics = Firebase.analytics
-        uploadData()
-        readData()
+        //uploadData()
+        //readData()
         setContentView(binding.root)
 
 
@@ -125,6 +125,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+    /*
     private fun uploadData() {
         binding!!.btnUploadData.setOnClickListener {
             // create a dummy data
@@ -160,6 +162,10 @@ class MainActivity : AppCompatActivity() {
                 }
         }
     }
+     */
+
+
+
     private fun updateViewVisiblity(uiState: UiState) {
         (uiState is UiState.Startup).let {
             binding.progress.isVisible = it
@@ -177,4 +183,5 @@ class MainActivity : AppCompatActivity() {
             binding.heart.isVisible = it
         }
     }
+
 }
