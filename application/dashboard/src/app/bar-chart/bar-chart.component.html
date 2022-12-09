@@ -1,11 +1,7 @@
-<div class="chart-container">
-  <ul>
-    <li *ngFor="let user of users | async">
-      {{ "Name: " + user['name'] }}
-      {{ "City: " + user['city'] }}
-      {{ "Age: " + user['age'] }}
-    </li>
-  </ul>
-  <p>Moyenne fréquence cardiaque</p>
-  <canvas  id="MyChart" >{{ chart }}</canvas>
+<div class="card border-primary mb-3" style="max-width: 20rem">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h4 class="card-title">Some stats</h4>
+    <canvas id="MyChart">{{ chart }}</canvas>
+  </div>
 </div>
