@@ -2,4 +2,6 @@
     <string name="hello_world">Hello Round World!</string>
     <string name="upload_data">Upload</string>
     <string name="retrieve_data">My stats</string>
+    <string name="toMainButton">Go back</string>
+
 </resources>

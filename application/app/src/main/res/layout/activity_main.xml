@@ -25,17 +25,19 @@
     tools:deviceIds="wear"
     tools:ignore="MissingClass">
 
+    <!-- Shown at startup. -->
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Shown at startup. -->
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
@@ -173,5 +175,15 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="@+id/btnUploadData"
         app:layout_constraintTop_toBottomOf="@+id/btnUploadData"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.851" />
+
+    <ImageButton
+        android:id="@+id/toDashboardButton"
+        android:layout_width="44dp"
+        android:layout_height="45dp"
+        app:srcCompat="?android:attr/actionModeFindDrawable"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="92dp"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
