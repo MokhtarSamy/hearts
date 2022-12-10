@@ -92,8 +92,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-
-
         binding.enablePassiveData.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // Make sure we have the necessary permission first.
@@ -103,6 +101,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Bind viewmodel state to the UI.
+        lifecycleScope.launchWhenStarted {
+            viewModel.uiState.collect {
+                updateViewVisiblity(it)
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.latestHeartRate.collect {
+                Log.d(TAG, "Collect data")
+                binding.lastMeasuredValue.text = it.toString()
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.passiveDataEnabled.collect {
+                binding.enablePassiveData.isChecked = it
+            }
+        }
         // Bind viewmodel state to the UI.
         lifecycleScope.launchWhenStarted {
             viewModel.heartRateAvailable.collect {
@@ -129,6 +145,22 @@ class MainActivity : AppCompatActivity() {
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
 
-
+    private fun updateViewVisiblity(uiState: UiState) {
+        (uiState is UiState.Startup).let {
+            binding.progress.isVisible = it
+        }
+        // These views are visible when heart rate capability is not available.
+        (uiState is UiState.HeartRateNotAvailable).let {
+            binding.brokenHeart.isVisible = it
+            binding.notAvailable.isVisible = it
+        }
+        // These views are visible when the capability is available.
+        (uiState is UiState.HeartRateAvailable).let {
+            binding.enablePassiveData.isVisible = it
+            binding.lastMeasuredLabel.isVisible = it
+            binding.lastMeasuredValue.isVisible = it
+            binding.heart.isVisible = it
+        }
+    }
 
 }

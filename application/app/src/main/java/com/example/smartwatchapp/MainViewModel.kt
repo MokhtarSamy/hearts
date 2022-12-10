@@ -93,7 +93,6 @@ class MainViewModel @Inject constructor(
         )
         FirebaseUtils().fireStoreDatabase.collection("hearts")
             .add(hashMap)
-
     }
 
     // upload data in the "stats" collection
@@ -108,12 +107,6 @@ class MainViewModel @Inject constructor(
         // use the add() method to create a document inside users collection
         FirebaseUtils().fireStoreDatabase.collection("stats")
             .add(hashMap)
-            .addOnSuccessListener {
-                Log.d(TAG, "Added stat document with ID ${it.id}")
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error adding stat document $exception")
-            }
         fun togglePassiveData(enabled: Boolean) {
             viewModelScope.launch {
                 repository.setPassiveDataEnabled(enabled)
