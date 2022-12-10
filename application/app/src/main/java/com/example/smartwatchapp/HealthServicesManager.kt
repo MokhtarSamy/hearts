@@ -34,7 +34,9 @@ import javax.inject.Inject
 class HealthServicesManager @Inject constructor(
     healthServicesClient: HealthServicesClient
 ) {
-    private val measureClient = healthServicesClient.measureClient
+    private val client = healthServicesClient.passiveMonitoringClient
+    private val dataTypes = setOf(DataType.HEART_RATE_BPM)
+
     /*init {
         val config: Any = ExerciseConfig(
             exerciseType = ExerciseType.UNKNOWN,
@@ -48,8 +50,8 @@ class HealthServicesManager @Inject constructor(
 
 
     suspend fun hasHeartRateCapability(): Boolean {
-        val capabilities = measureClient.getCapabilitiesAsync().await()
-        return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesMeasure)
+        val capabilities = client.getCapabilitiesAsync().await()
+        return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesPassiveMonitoring)
     }
 
     /**
@@ -74,22 +76,26 @@ class HealthServicesManager @Inject constructor(
                 trySendBlocking(MeasureMessage.MeasureData(heartRateBpm))
             }
         }
+    }
+    suspend fun registerForHeartRateData() {
+        val passiveListenerConfig = PassiveListenerConfig.builder()
+            .setDataTypes(dataTypes)
+            .build()
 
-        Log.d(TAG, "Registering for data")
-        measureClient.registerMeasureCallback(DataType.HEART_RATE_BPM, callback)
+        Log.i(TAG, "Registering listener")
+        client.setPassiveListenerServiceAsync(
+            PassiveDataService::class.java,
+            passiveListenerConfig
+        ).await()
+    }
 
-        awaitClose {
-            Log.d(TAG, "Unregistering for data")
-            runBlocking {
-                measureClient.unregisterMeasureCallbackAsync(DataType.HEART_RATE_BPM, callback)
-            }
-        }
+    suspend fun unregisterForHeartRateData() {
+        Log.i(TAG, "Unregistering listeners")
+        client.clearPassiveListenerServiceAsync().await()
     }
 }
 
 sealed class MeasureMessage {
     class MeasureAvailability(val availability: DataTypeAvailability) : MeasureMessage()
     class MeasureData(val data: List<SampleDataPoint<Double>>): MeasureMessage()
-    class MeasureDataStats(val dataStats: List<StatisticalDataPoint<Double>>): MeasureMessage()
-
 }

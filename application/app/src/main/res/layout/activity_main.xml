@@ -76,7 +76,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_text"
         tools:visibility="visible" />
-
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/enable_passive_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="enable"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name"
+        tools:checked="true"
+        tools:visibility="visible" />
     <TextView
         android:id="@+id/time_now"
         android:layout_width="11dp"

@@ -27,8 +27,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QuerySnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.sql.Time
 import java.text.DateFormat
@@ -43,8 +42,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val healthServicesManager: HealthServicesManager
-) : ViewModel() {
+    private val healthServicesManager: HealthServicesManager,
+    private val repository: PassiveDataRepository
+    ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Startup)
     val uiState: StateFlow<UiState> = _uiState
@@ -61,6 +61,8 @@ class MainViewModel @Inject constructor(
 
     private val _heartRateBpm = MutableStateFlow(0.0)
     val heartRateBpm: StateFlow<Double> = _heartRateBpm
+    val passiveDataEnabled: Flow<Boolean>
+    val latestHeartRate = repository.latestHeartRate
 
     init {
 
@@ -73,6 +75,17 @@ class MainViewModel @Inject constructor(
                 UiState.HeartRateNotAvailable
             }
         }
+
+        passiveDataEnabled = repository.passiveDataEnabled
+            .distinctUntilChanged()
+            .onEach { enabled ->
+                viewModelScope.launch {
+                    if (enabled)
+                        healthServicesManager.registerForHeartRateData()
+                    else
+                        healthServicesManager.unregisterForHeartRateData()
+                }
+            }
     }
 
     private fun uploadRate(rate: Double, date: String, time: String, moment: String, idSession: String){
@@ -110,10 +123,12 @@ class MainViewModel @Inject constructor(
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error adding stat document $exception")
             }
-
+        fun togglePassiveData(enabled: Boolean) {
+            viewModelScope.launch {
+                repository.setPassiveDataEnabled(enabled)
+            }
+        }
     }
-
-
 
 
     @ExperimentalCoroutinesApi
@@ -137,8 +152,8 @@ class MainViewModel @Inject constructor(
                 }
                 is MeasureMessage.MeasureData -> {
 
-                    var c : Calendar = Calendar.getInstance()
-                    var df : SimpleDateFormat? = null
+                    var c: Calendar = Calendar.getInstance()
+                    var df: SimpleDateFormat? = null
                     var formattedDate = ""
                     //var tf : SimpleDateFormat? = null
                     //var formattedTime = ""
@@ -153,13 +168,13 @@ class MainViewModel @Inject constructor(
                     var max = 0.0
 
                     val bpm = it.data.last().value
-                    if(count==0){
-                        idSession = date+heure+moment
+                    if (count == 0) {
+                        idSession = date + heure + moment
                     }
-                    if(bpm!=0.0) {
+                    if (bpm != 0.0) {
                         count += 1
                     }
-                    if((count%5 === 0) && (bpm != 0.0)) {
+                    if ((count % 5 === 0) && (bpm != 0.0)) {
                         uploadRate(bpm, date, heure, moment, idSession)
                         /*
                         rates.plus(bpm)
@@ -193,8 +208,13 @@ class MainViewModel @Inject constructor(
                     Log.d(TAG, "Data update: $bpmstart")
                     _heartRateBpmStats.value = bpmstart.getLong(new TemportalField)
                 }*/
-                else -> { }
+                else -> {}
             }
+        }
+    }
+    fun togglePassiveData(enabled: Boolean) {
+        viewModelScope.launch {
+            repository.setPassiveDataEnabled(enabled)
         }
     }
 }

@@ -70,24 +70,27 @@ class MainActivity : AppCompatActivity() {
                 when (result) {
                     true -> {
                         Log.i(TAG, "Body sensors permission granted")
-                        // Only measure while the activity is at least in STARTED state.
-                        // MeasureClient provides frequent updates, which requires increasing the
-                        // sampling rate of device sensors, so we must be careful not to remain
-                        // registered any longer than necessary.
-                        lifecycleScope.launchWhenStarted {
-                            viewModel.measureHeartRate()
-                        }
+                        viewModel.togglePassiveData(true)
                     }
-                    false -> Log.i(TAG, "Body sensors permission not granted")
+                    false -> {
+                        Log.i(TAG, "Body sensors permission not granted")
+                        viewModel.togglePassiveData(false)
+                    }
                 }
             }
 
-        // Bind viewmodel state to the UI.
-        lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect {
-                updateViewVisiblity(it)
+
+
+        binding.enablePassiveData.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Make sure we have the necessary permission first.
+                permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
+            } else {
+                viewModel.togglePassiveData(false)
             }
         }
+
+        // Bind viewmodel state to the UI.
         lifecycleScope.launchWhenStarted {
             viewModel.heartRateAvailable.collect {
                 binding.statusText.text = getString(R.string.measure_status, it)
@@ -96,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.heartRateBpm.collect {
-		binding.lastMeasuredValue.text = String.format("%.1f", it)
+
             }
         }
 
@@ -105,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                 binding.timeNow.text = String.format(it.toString())
             }
         }
+
     }
 
     override fun onStart() {
@@ -166,22 +170,5 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun updateViewVisiblity(uiState: UiState) {
-        (uiState is UiState.Startup).let {
-            binding.progress.isVisible = it
-        }
-        // These views are visible when heart rate capability is not available.
-        (uiState is UiState.HeartRateNotAvailable).let {
-            binding.brokenHeart.isVisible = it
-            binding.notAvailable.isVisible = it
-        }
-        // These views are visible when the capability is available.
-        (uiState is UiState.HeartRateAvailable).let {
-            binding.statusText.isVisible = it
-            binding.lastMeasuredLabel.isVisible = it
-            binding.lastMeasuredValue.isVisible = it
-            binding.heart.isVisible = it
-        }
-    }
 
 }
