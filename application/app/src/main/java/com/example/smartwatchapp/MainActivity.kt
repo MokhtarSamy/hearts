@@ -16,8 +16,12 @@
 
 package com.example.smartwatchapp
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -54,14 +58,25 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    @SuppressLint("WrongViewCast")
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+
+
+
         analytics = Firebase.analytics
         setContentView(binding.root)
 
+
+        val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
+        println(buttonToDashboardOnSmartwatch)
+        buttonToDashboardOnSmartwatch.setOnClickListener {
+            val intent = Intent(this, DashboardOnSmartwatch::class.java)
+            startActivity(intent)
+        }
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
