@@ -60,8 +60,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         analytics = Firebase.analytics
-        //uploadData()
-        //readData()
         setContentView(binding.root)
 
 
@@ -111,59 +109,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
-
-    /*
-    override fun onPause(){
-        super.onPause()
-        Log.d(TAG, "je suis en pause")
-        super.onResume()
-        Log.d(TAG, "je suis en resume")
-        //super.onStart()
-        //.d(TAG, "je suis en start")
-    }
-    */
-
-
-
-
-    /*
-    private fun uploadData() {
-        binding!!.btnUploadData.setOnClickListener {
-            // create a dummy data
-            val hashMap = hashMapOf<String, Any>(
-                "name" to "Mo",
-                "city" to "Alexandria",
-                "age" to 30
-            )
-            // use the add() method to create a document inside users collection
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .add(hashMap)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Added document with ID ${it.id}")
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error adding document $exception")
-                }
-        }
-    }
-
-
-    private fun readData(){
-        binding!!.btnReadData.setOnClickListener {
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    querySnapshot.forEach { document ->
-                        Log.d(TAG, "Read document with ID ${document.id}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents $exception")
-                }
-        }
-    }
-     */
-
 
 
     private fun updateViewVisiblity(uiState: UiState) {

@@ -17,20 +17,14 @@
 package com.example.smartwatchapp
 
 import android.util.Log
-import androidx.health.services.client.data.DataType
 import androidx.health.services.client.data.DataTypeAvailability
-import androidx.health.services.client.data.ExerciseConfig
-import androidx.health.services.client.data.ExerciseType
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.QuerySnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.sql.Time
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,6 +69,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // upload data in the "hearts" collection
     private fun uploadRate(rate: Double, date: String, time: String, moment: String, idSession: String){
         val hashMap = hashMapOf<String, Any>(
             "rate" to rate,
@@ -85,14 +80,10 @@ class MainViewModel @Inject constructor(
         )
         FirebaseUtils().fireStoreDatabase.collection("hearts")
             .add(hashMap)
-            .addOnSuccessListener {
-                Log.d(TAG, "Added heart document with ID ${it.id}")
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error adding heart document $exception")
-            }
+
     }
 
+    // upload data in the "stats" collection
     private fun uploadStat(avg: Double, min: Double, max: Double, idSession: String){
 
         val hashMap = hashMapOf<String, Any>(
@@ -104,14 +95,11 @@ class MainViewModel @Inject constructor(
         // use the add() method to create a document inside users collection
         FirebaseUtils().fireStoreDatabase.collection("stats")
             .add(hashMap)
-            .addOnSuccessListener {
-                Log.d(TAG, "Added stat document with ID ${it.id}")
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error adding stat document $exception")
-            }
+
 
     }
+
+
 
 
 
@@ -121,7 +109,7 @@ class MainViewModel @Inject constructor(
         var count = 0
         var idSession = ""
 
-        var rates = arrayOf<Double>()
+        var rates = arrayOf<Double>().toMutableList()
         var datesStats = arrayOf<String>()
         var heuresStats = arrayOf<String>()
         var momentStats = arrayOf<String>()
@@ -140,8 +128,7 @@ class MainViewModel @Inject constructor(
                     var c : Calendar = Calendar.getInstance()
                     var df : SimpleDateFormat? = null
                     var formattedDate = ""
-                    //var tf : SimpleDateFormat? = null
-                    //var formattedTime = ""
+
                     df = SimpleDateFormat("dd-MM-yyyy HH:mm:ss a")
                     formattedDate = df!!.format(c.time)
                     var date = formattedDate.split(' ')[0]
@@ -159,40 +146,32 @@ class MainViewModel @Inject constructor(
                     if(bpm!=0.0) {
                         count += 1
                     }
-                    if((count%5 === 0) && (bpm != 0.0)) {
-                        uploadRate(bpm, date, heure, moment, idSession)
-                        /*
-                        rates.plus(bpm)
-                        datesStats.plus(date)
-                        heuresStats.plus(heure)
-                        momentStats.plus(moment)
-                        avg = rates.average()
-                        min = rates.min()
-                        max = rates.max()
-                        uploadStat(avg, min, max, idSession)
-                         */
+                    if((count <= 60) && (count%5 === 0) && (bpm != 0.0)) {
+
+
+                            uploadRate(bpm, date, heure, moment, idSession)
+
+                            rates.add(bpm)
+
+                            avg = rates.average()
+                            min = rates.min()
+                            max = rates.max()
+
+                            if(count === 60){ // end of the session (after 1 min)
+                            uploadStat(avg, min, max, idSession)
+                            }
+
                     }
 
-
-                    //tf = SimpleDateFormat("")
-                    //formattedTime = tf!!.format(c.time)
 
 
                     Log.d(TAG, "Data update: $bpm")
                     Log.d(TAG, "Format date: $formattedDate")
-                    //Log.d(TAG, "Format Time: $formattedTime")
 
                     _heartRateBpm.value = bpm
 
                 }
-                /*
-                is MeasureMessage.MeasureDataStats -> {
-                    val bpmstart = it.dataStats?.start
-                    val bpmsEnd = it.dataStats?.end
 
-                    Log.d(TAG, "Data update: $bpmstart")
-                    _heartRateBpmStats.value = bpmstart.getLong(new TemportalField)
-                }*/
                 else -> { }
             }
         }
