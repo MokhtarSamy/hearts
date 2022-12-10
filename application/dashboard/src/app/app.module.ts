@@ -5,6 +5,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AppComponent } from './app.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { UserComponent } from './user/user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD4phyR2v8R-MyW0wLDUB2TdenPCyJ8P_o",
@@ -21,12 +23,14 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     BarChartComponent,
-    LineChartComponent
+    LineChartComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
