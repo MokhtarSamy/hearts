@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2021 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,4 +22,7 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="upload_data">Upload</string>
     <string name="retrieve_data">My stats</string>
+    <string name="toDashboardButton"></string>
+    <string name="toMainButton">Go back</string>
+
 </resources>

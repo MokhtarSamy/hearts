@@ -16,8 +16,12 @@
 
 package com.example.smartwatchapp
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -54,16 +58,25 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    @SuppressLint("WrongViewCast")
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+
+
+
         analytics = Firebase.analytics
-        //uploadData()
-        //readData()
         setContentView(binding.root)
 
+
+        val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
+        println(buttonToDashboardOnSmartwatch)
+        buttonToDashboardOnSmartwatch.setOnClickListener {
+            val intent = Intent(this, DashboardOnSmartwatch::class.java)
+            startActivity(intent)
+        }
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
@@ -115,59 +128,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
-
-    /*
-    override fun onPause(){
-        super.onPause()
-        Log.d(TAG, "je suis en pause")
-        super.onResume()
-        Log.d(TAG, "je suis en resume")
-        //super.onStart()
-        //.d(TAG, "je suis en start")
-    }
-    */
-
-
-
-
-    /*
-    private fun uploadData() {
-        binding!!.btnUploadData.setOnClickListener {
-            // create a dummy data
-            val hashMap = hashMapOf<String, Any>(
-                "name" to "Mo",
-                "city" to "Alexandria",
-                "age" to 30
-            )
-            // use the add() method to create a document inside users collection
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .add(hashMap)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Added document with ID ${it.id}")
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error adding document $exception")
-                }
-        }
-    }
-
-
-    private fun readData(){
-        binding!!.btnReadData.setOnClickListener {
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    querySnapshot.forEach { document ->
-                        Log.d(TAG, "Read document with ID ${document.id}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents $exception")
-                }
-        }
-    }
-     */
-
 
 
 
