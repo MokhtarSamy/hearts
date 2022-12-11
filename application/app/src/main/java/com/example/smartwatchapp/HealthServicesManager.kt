@@ -34,22 +34,12 @@ import javax.inject.Inject
 class HealthServicesManager @Inject constructor(
     healthServicesClient: HealthServicesClient
 ) {
-    private val measureClient = healthServicesClient.measureClient
-    /*init {
-        val config: Any = ExerciseConfig(
-            exerciseType = ExerciseType.UNKNOWN,
-            dataTypes = setOf(DataType.HEART_RATE_BPM),
-            isAutoPauseAndResumeEnabled = false,
-            isGpsEnabled = false,
-        )
-        measureClient. .startExerciseAsync(config).await()
-    }*/
-
-
+    private val client = healthServicesClient.passiveMonitoringClient
+    private val dataTypes = setOf(DataType.HEART_RATE_BPM)
 
     suspend fun hasHeartRateCapability(): Boolean {
-        val capabilities = measureClient.getCapabilitiesAsync().await()
-        return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesMeasure)
+        val capabilities = client.getCapabilitiesAsync().await()
+        return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesPassiveMonitoring)
     }
 
     /**
@@ -59,37 +49,22 @@ class HealthServicesManager @Inject constructor(
      *
      * [callbackFlow] is used to bridge between a callback-based API and Kotlin flows.
      */
-    @ExperimentalCoroutinesApi
-    fun heartRateMeasureFlow() = callbackFlow {
-        val callback = object : MeasureCallback {
-            override fun onAvailabilityChanged(dataType: DeltaDataType<*, *>, availability: Availability) {
-                // Only send back DataTypeAvailability (not LocationAvailability)
-                if (availability is DataTypeAvailability) {
-                    trySendBlocking(MeasureMessage.MeasureAvailability(availability))
-                }
-            }
 
-            override fun onDataReceived(data: DataPointContainer) {
-               val heartRateBpm = data.getData(DataType.HEART_RATE_BPM)
-                trySendBlocking(MeasureMessage.MeasureData(heartRateBpm))
-            }
-        }
+    suspend fun registerForHeartRateData() {
+        val passiveListenerConfig = PassiveListenerConfig.builder()
+            .setDataTypes(dataTypes)
+            .setShouldUserActivityInfoBeRequested(false)
+            .build()
 
-        Log.d(TAG, "Registering for data")
-        measureClient.registerMeasureCallback(DataType.HEART_RATE_BPM, callback)
-
-        awaitClose {
-            Log.d(TAG, "Unregistering for data")
-            runBlocking {
-                measureClient.unregisterMeasureCallbackAsync(DataType.HEART_RATE_BPM, callback)
-            }
-        }
+        Log.i(TAG, "Registering listener")
+        client.setPassiveListenerServiceAsync(
+            PassiveDataService::class.java,
+            passiveListenerConfig
+        ).await()
     }
-}
 
-sealed class MeasureMessage {
-    class MeasureAvailability(val availability: DataTypeAvailability) : MeasureMessage()
-    class MeasureData(val data: List<SampleDataPoint<Double>>): MeasureMessage()
-    class MeasureDataStats(val dataStats: List<StatisticalDataPoint<Double>>): MeasureMessage()
-
+    suspend fun unregisterForHeartRateData() {
+        Log.i(TAG, "Unregistering listeners")
+        client.clearPassiveListenerServiceAsync().await()
+    }
 }
