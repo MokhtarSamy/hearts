@@ -27,23 +27,14 @@ export class LineChartComponent implements OnInit {
     this.stats.forEach(element => {
 
      for(let i = 0; i < element.length; i++){
-        this.dates.push(element[i]['idSession'].substring(0, 10) + " " + element[i]['idSession'].substring(10, 18));
+        this.dates.push(element[i]['date'] + " " + element[i]['heure']);
         this.avgs.push(element[i]['avg']);
         this.mins.push(element[i]['min']);
         this.maxs.push(element[i]['max']);
      }
     });
     console.log(this.dates);
-
-    /*
-    let newDates:string[] = [];
-    let newAvgs:number[] =  [];
-    let newMins:number[] =  [];
-    let newMaxs:number[] =  [];
-
-    for(let i = 0; i < this.dates.length; i++){
-      
-    }*/
+  
    
   }
 

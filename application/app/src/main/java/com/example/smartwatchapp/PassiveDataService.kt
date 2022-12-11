@@ -20,8 +20,6 @@ class PassiveDataService : PassiveListenerService() {
     @Inject
     lateinit var repository: PassiveDataRepository
 
-    var idSession = ""
-
     var rates = arrayOf<Double>().toMutableList()
     var avg = 0.0
     var min = 0.0
@@ -44,14 +42,14 @@ class PassiveDataService : PassiveListenerService() {
                 var heure = formattedDate.split(' ')[1]
                 var moment = formattedDate.split(' ')[2]
                 val bpm = it
-                    idSession = date + heure + moment
 
-                    uploadRate(bpm, date, heure, moment, idSession)
+                    uploadRate(bpm, date, heure, moment)
                     rates.add(bpm)
                     avg = rates.average()
                     min = rates.min()
                     max = rates.max()
-                        uploadStat(avg, min, max, idSession)
+
+                        uploadStat(avg, min, max, date, heure)
 
                 Log.d(TAG, "Data update: $bpm")
                 Log.d(TAG, "Format date: $formattedDate")
@@ -64,12 +62,13 @@ class PassiveDataService : PassiveListenerService() {
         }
 
     // upload data in the "stats" collection
-    private fun uploadStat(avg: Double, min: Double, max: Double, idSession: String){
+    private fun uploadStat(avg: Double, min: Double, max: Double, date: String, heure: String){
         val hashMap = hashMapOf<String, Any>(
-            "idSession" to idSession,
             "avg" to avg,
             "min" to min,
-            "max" to max
+            "max" to max,
+            "date" to date,
+            "heure" to heure
         )
         // use the add() method to create a document inside users collection
         FirebaseUtils().fireStoreDatabase.collection("stats")
@@ -77,13 +76,12 @@ class PassiveDataService : PassiveListenerService() {
     }
     
     // upload data in the "hearts" collection
-    private fun uploadRate(rate: Double, date: String, time: String, moment: String, idSession: String){
+    private fun uploadRate(rate: Double, date: String, time: String, moment: String){
         val hashMap = hashMapOf<String, Any>(
             "rate" to rate,
             "date" to date,
             "time" to time,
             "moment" to moment,
-            "idSession" to idSession
         )
         FirebaseUtils().fireStoreDatabase.collection("hearts")
             .add(hashMap)
