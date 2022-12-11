@@ -35,6 +35,17 @@ class HealthServicesManager @Inject constructor(
     healthServicesClient: HealthServicesClient
 ) {
     private val measureClient = healthServicesClient.measureClient
+    /*init {
+        val config: Any = ExerciseConfig(
+            exerciseType = ExerciseType.UNKNOWN,
+            dataTypes = setOf(DataType.HEART_RATE_BPM),
+            isAutoPauseAndResumeEnabled = false,
+            isGpsEnabled = false,
+        )
+        measureClient. .startExerciseAsync(config).await()
+    }*/
+
+
 
     suspend fun hasHeartRateCapability(): Boolean {
         val capabilities = measureClient.getCapabilitiesAsync().await()

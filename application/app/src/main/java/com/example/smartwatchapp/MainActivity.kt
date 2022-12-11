@@ -27,6 +27,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.health.services.client.data.DataType
+import androidx.health.services.client.data.ExerciseConfig
+import androidx.health.services.client.data.ExerciseGoal
+import androidx.health.services.client.data.ExerciseType
 import androidx.lifecycle.lifecycleScope
 import com.example.smartwatchapp.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -34,7 +38,9 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
+import java.lang.reflect.Array.set
+import java.sql.Time
+import java.util.*
 
 
 private lateinit var analytics: FirebaseAnalytics
@@ -62,9 +68,8 @@ class MainActivity : AppCompatActivity() {
 
 
         analytics = Firebase.analytics
-        uploadData()
-        readData()
         setContentView(binding.root)
+
 
         val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
         println(buttonToDashboardOnSmartwatch)
@@ -72,7 +77,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DashboardOnSmartwatch::class.java)
             startActivity(intent)
         }
-
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
@@ -121,40 +125,7 @@ class MainActivity : AppCompatActivity() {
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
 
-    private fun uploadData() {
-        binding!!.btnUploadData.setOnClickListener {
-            // create a dummy data
-            val hashMap = hashMapOf<String, Any>(
-                "name" to "Mo",
-                "city" to "Alexandria",
-                "age" to 30
-            )
-            // use the add() method to create a document inside users collection
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .add(hashMap)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Added document with ID ${it.id}")
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error adding document $exception")
-                }
-        }
-    }
-    private fun readData(){
-        binding!!.btnReadData.setOnClickListener {
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .get()
-                .addOnSuccessListener { querySnapshot ->
-                    querySnapshot.forEach { document ->
-                        Log.d(TAG, "Read document with ID ${document.id}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents $exception")
-                }
 
-        }
-    }
     private fun updateViewVisiblity(uiState: UiState) {
         (uiState is UiState.Startup).let {
             binding.progress.isVisible = it
@@ -172,4 +143,5 @@ class MainActivity : AppCompatActivity() {
             binding.heart.isVisible = it
         }
     }
+
 }
