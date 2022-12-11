@@ -64,12 +64,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-
-
-
         analytics = Firebase.analytics
         setContentView(binding.root)
-
 
         val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
         println(buttonToDashboardOnSmartwatch)
@@ -110,7 +106,6 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.latestHeartRate.collect {
-                Log.d(TAG, "Collect data")
                 binding.lastMeasuredValue.text = it.toString()
             }
         }
@@ -123,18 +118,6 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenStarted {
             viewModel.heartRateAvailable.collect {
                 binding.statusText.text = getString(R.string.measure_status, it)
-            }
-        }
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.heartRateBpm.collect {
-
-            }
-        }
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.heartRateBpmTime.collect {
-                binding.timeNow.text = String.format(it.toString())
             }
         }
 

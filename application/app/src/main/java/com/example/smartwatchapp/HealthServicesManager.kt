@@ -37,18 +37,6 @@ class HealthServicesManager @Inject constructor(
     private val client = healthServicesClient.passiveMonitoringClient
     private val dataTypes = setOf(DataType.HEART_RATE_BPM)
 
-    /*init {
-        val config: Any = ExerciseConfig(
-            exerciseType = ExerciseType.UNKNOWN,
-            dataTypes = setOf(DataType.HEART_RATE_BPM),
-            isAutoPauseAndResumeEnabled = false,
-            isGpsEnabled = false,
-        )
-        measureClient. .startExerciseAsync(config).await()
-    }*/
-
-
-
     suspend fun hasHeartRateCapability(): Boolean {
         val capabilities = client.getCapabilitiesAsync().await()
         return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesPassiveMonitoring)
@@ -61,25 +49,11 @@ class HealthServicesManager @Inject constructor(
      *
      * [callbackFlow] is used to bridge between a callback-based API and Kotlin flows.
      */
-    @ExperimentalCoroutinesApi
-    fun heartRateMeasureFlow() = callbackFlow {
-        val callback = object : MeasureCallback {
-            override fun onAvailabilityChanged(dataType: DeltaDataType<*, *>, availability: Availability) {
-                // Only send back DataTypeAvailability (not LocationAvailability)
-                if (availability is DataTypeAvailability) {
-                    trySendBlocking(MeasureMessage.MeasureAvailability(availability))
-                }
-            }
 
-            override fun onDataReceived(data: DataPointContainer) {
-               val heartRateBpm = data.getData(DataType.HEART_RATE_BPM)
-                trySendBlocking(MeasureMessage.MeasureData(heartRateBpm))
-            }
-        }
-    }
     suspend fun registerForHeartRateData() {
         val passiveListenerConfig = PassiveListenerConfig.builder()
             .setDataTypes(dataTypes)
+            .setShouldUserActivityInfoBeRequested(false)
             .build()
 
         Log.i(TAG, "Registering listener")
@@ -93,9 +67,4 @@ class HealthServicesManager @Inject constructor(
         Log.i(TAG, "Unregistering listeners")
         client.clearPassiveListenerServiceAsync().await()
     }
-}
-
-sealed class MeasureMessage {
-    class MeasureAvailability(val availability: DataTypeAvailability) : MeasureMessage()
-    class MeasureData(val data: List<SampleDataPoint<Double>>): MeasureMessage()
 }
