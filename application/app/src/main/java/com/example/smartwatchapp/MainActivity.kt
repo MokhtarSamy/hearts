@@ -64,16 +64,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-
-
-
         analytics = Firebase.analytics
         setContentView(binding.root)
-
 
         val buttonToAvg = findViewById<ImageButton>(R.id.toAvgButton)
         buttonToAvg.setOnClickListener {
             val intent = Intent(this, AvgActivity::class.java)
+
             startActivity(intent)
         }
 
@@ -82,17 +79,23 @@ class MainActivity : AppCompatActivity() {
                 when (result) {
                     true -> {
                         Log.i(TAG, "Body sensors permission granted")
-                        // Only measure while the activity is at least in STARTED state.
-                        // MeasureClient provides frequent updates, which requires increasing the
-                        // sampling rate of device sensors, so we must be careful not to remain
-                        // registered any longer than necessary.
-                        lifecycleScope.launchWhenStarted {
-                            viewModel.measureHeartRate()
-                        }
+                        viewModel.togglePassiveData(true)
                     }
-                    false -> Log.i(TAG, "Body sensors permission not granted")
+                    false -> {
+                        Log.i(TAG, "Body sensors permission not granted")
+                        viewModel.togglePassiveData(false)
+                    }
                 }
             }
+
+        binding.enablePassiveData.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Make sure we have the necessary permission first.
+                permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
+            } else {
+                viewModel.togglePassiveData(false)
+            }
+        }
 
         // Bind viewmodel state to the UI.
         lifecycleScope.launchWhenStarted {
@@ -100,17 +103,18 @@ class MainActivity : AppCompatActivity() {
                 updateViewVisiblity(it)
             }
         }
+
         lifecycleScope.launchWhenStarted {
-            viewModel.heartRateAvailable.collect {
-                binding.statusText.text = getString(R.string.measure_status, it)
+            viewModel.latestHeartRate.collect {
+                binding.lastMeasuredValue.text = it.toString()
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.passiveDataEnabled.collect {
+                binding.enablePassiveData.isChecked = it
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.heartRateBpm.collect {
-		binding.lastMeasuredValue.text = String.format("%.1f", it)
-            }
-        }
 
     }
 
@@ -118,7 +122,6 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         permissionLauncher.launch(android.Manifest.permission.BODY_SENSORS)
     }
-
 
     private fun updateViewVisiblity(uiState: UiState) {
         (uiState is UiState.Startup).let {
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         }
         // These views are visible when the capability is available.
         (uiState is UiState.HeartRateAvailable).let {
-            binding.statusText.isVisible = it
+            binding.enablePassiveData.isVisible = it
             binding.lastMeasuredLabel.isVisible = it
             binding.lastMeasuredValue.isVisible = it
             binding.heart.isVisible = it
