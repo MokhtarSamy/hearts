@@ -67,10 +67,10 @@ class MainActivity : AppCompatActivity() {
         analytics = Firebase.analytics
         setContentView(binding.root)
 
-        val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
-        println(buttonToDashboardOnSmartwatch)
-        buttonToDashboardOnSmartwatch.setOnClickListener {
-            val intent = Intent(this, DashboardOnSmartwatch::class.java)
+        val buttonToAvg = findViewById<ImageButton>(R.id.toAvgButton)
+        buttonToAvg.setOnClickListener {
+            val intent = Intent(this, AvgActivity::class.java)
+
             startActivity(intent)
         }
 
@@ -114,12 +114,7 @@ class MainActivity : AppCompatActivity() {
                 binding.enablePassiveData.isChecked = it
             }
         }
-        // Bind viewmodel state to the UI.
-        lifecycleScope.launchWhenStarted {
-            viewModel.heartRateAvailable.collect {
-                binding.statusText.text = getString(R.string.measure_status, it)
-            }
-        }
+
 
     }
 
