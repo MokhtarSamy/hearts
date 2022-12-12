@@ -85,6 +85,12 @@ class PassiveDataService : PassiveListenerService() {
                     .whereEqualTo("date", date)
                     .get()
                     .addOnSuccessListener {
+
+                            querySnapshot ->
+                        querySnapshot.forEach { document ->
+                            document.reference.delete()
+                        }
+
                         val hashMap = hashMapOf<String, Any>(
                             "avg" to avg,
                             "min" to min,
@@ -98,12 +104,12 @@ class PassiveDataService : PassiveListenerService() {
                     .addOnFailureListener{
 
                     }
+
             }
-
-
 
             .addOnFailureListener { exception ->
                 //Log.w(TAG, "Error getting documents $exception")
+
             }
 
 
