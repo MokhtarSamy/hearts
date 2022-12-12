@@ -71,10 +71,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val buttonToDashboardOnSmartwatch = findViewById<ImageButton>(R.id.toDashboardButton)
-        println(buttonToDashboardOnSmartwatch)
-        buttonToDashboardOnSmartwatch.setOnClickListener {
-            val intent = Intent(this, DashboardOnSmartwatch::class.java)
+        val buttonToAvg = findViewById<ImageButton>(R.id.toAvgButton)
+        buttonToAvg.setOnClickListener {
+            val intent = Intent(this, AvgActivity::class.java)
             startActivity(intent)
         }
 
@@ -113,11 +112,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.heartRateBpmTime.collect {
-                binding.timeNow.text = String.format(it.toString())
-            }
-        }
     }
 
     override fun onStart() {

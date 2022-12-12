@@ -15,14 +15,17 @@
   -->
 
 <resources>
-    <string name="app_name">Our App</string>
+    <string name="app_name">MY SWEET HEART</string>
     <string name="measure_status">Status: %1$s</string>
     <string name="last_measured">Last measured:</string>
     <string name="heart_rate_not_available">Heart rate not available on this device</string>
     <string name="hello_world">Hello Square World!</string>
     <string name="upload_data">Upload</string>
     <string name="retrieve_data">My stats</string>
-    <string name="toDashboardButton"></string>
-    <string name="toMainButton">Go back</string>
+    <string name="avg">Average Heart Rate</string>
+    <string name="max">Maximum Heart Rate</string>
+    <string name="min">Minimum Heart Rate</string>
+    <string name="description">Average Heart Rate</string>
+
 
 </resources>
