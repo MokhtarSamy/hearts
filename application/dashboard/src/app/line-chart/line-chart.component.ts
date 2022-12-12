@@ -27,7 +27,7 @@ export class LineChartComponent implements OnInit {
     this.stats.forEach(element => {
 
      for(let i = 0; i < element.length; i++){
-        this.dates.push(element[i]['date'] + " " + element[i]['heure']);
+        this.dates.push(element[i]['date']);
         this.avgs.push(element[i]['avg']);
         this.mins.push(element[i]['min']);
         this.maxs.push(element[i]['max']);
