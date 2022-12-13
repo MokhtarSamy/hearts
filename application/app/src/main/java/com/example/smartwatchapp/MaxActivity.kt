@@ -10,6 +10,7 @@ import android.widget.ImageButton
 class MaxActivity() : MyActivity() {
     override var stat = "max"
     override var id = R.id.textViewMax
+    override var idComment = R.id.commentMax
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

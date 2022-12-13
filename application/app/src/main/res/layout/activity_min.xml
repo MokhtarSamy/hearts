@@ -7,6 +7,35 @@
     tools:context=".MinActivity">
 
     <TextView
+        android:id="@+id/commentMin"
+        android:layout_width="173dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMin"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <ImageView
+        android:id="@+id/heart4"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/commentMin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleMin"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_heart"
+        tools:visibility="visible" />
+
+    <TextView
         android:id="@+id/textViewTitleMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +54,8 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleMin"
-        app:layout_constraintVertical_bias="0.329" />
+        app:layout_constraintVertical_bias="0.187" />
 </androidx.constraintlayout.widget.ConstraintLayout>

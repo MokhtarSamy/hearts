@@ -22,6 +22,7 @@ class AvgActivity : MyActivity() {
 
     override var stat = "avg"
     override var id = R.id.textViewAvg
+    override var idComment = R.id.commentAvg
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

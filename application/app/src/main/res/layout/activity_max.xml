@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".MaxActivity">
 
+    <TextView
+        android:id="@+id/commentMax"
+        android:layout_width="173dp"
+        android:layout_height="39dp"
+        android:ems="10"
+        android:gravity="start|top"
+        app:layout_constraintBottom_toTopOf="@+id/toMinButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleMax"
+        app:layout_constraintVertical_bias="0.802" />
+
+    <ImageView
+        android:id="@+id/heart3"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/commentMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.331"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleMax"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_heart"
+        tools:visibility="visible" />
+
     <ImageButton
         android:id="@+id/toMinButton"
         android:layout_width="38dp"
@@ -29,15 +57,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.182" />
+        app:layout_constraintVertical_bias="0.163" />
 
     <TextView
         android:id="@+id/textViewMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/toMinButton"
+        app:layout_constraintBottom_toTopOf="@+id/commentMax"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMax" />
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toEndOf="@+id/heart3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleMax"
+        app:layout_constraintVertical_bias="0.045" />
 </androidx.constraintlayout.widget.ConstraintLayout>
