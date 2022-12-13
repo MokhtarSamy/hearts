@@ -12,11 +12,11 @@ import kotlin.math.roundToInt
 
 abstract class MyActivity() : AppCompatActivity() {
 
-    lateinit var newText : TextView
     private var heartBeats = 0
 
     abstract var stat : String
     abstract var id : Int
+    abstract var idComment : Int
 
 
     private fun getTime() : String {
@@ -45,8 +45,8 @@ abstract class MyActivity() : AppCompatActivity() {
     }
 
     private fun setTextView(heartBeats : Int ) {
-        getData();
-        newText = findViewById<TextView>(id)
+        var newText = findViewById<TextView>(id)
+        var newComment = findViewById<TextView>(idComment)
 
         /*newText.layoutParams.height = 150
         newText.layoutParams.width = 175
@@ -56,18 +56,17 @@ abstract class MyActivity() : AppCompatActivity() {
         newText.setTextColor(Color.WHITE);
         newText.textSize = 20.0f
         newText.text = heartBeats.toString()
-        Log.d(TAG, newText.text.toString())
+        newComment.text = comment(heartBeats)
     }
 
     private fun comment(heartBeat : Int) : String {
         if ((heartBeat) < 40) {
-            return "ATTENTION ! Votre rythme cardiaque est anormalement faible!"
+            return "ATTENTION ! Votre rythme cardiaque est plutôt faible!"
         }
         if ((heartBeat) > 150) {
-            return "ATTENTION ! Votre rythme cardiaque est anormalement élevé!"
+            return "ATTENTION ! Votre rythme cardiaque est plutôt élevé!"
         }
-        return "Vous avez un rythme cardiaque acceptable."
-
+        return "Vous avez un rythme cardiaque normal."
     }
 
 
