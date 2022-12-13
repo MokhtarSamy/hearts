@@ -1,21 +1,8 @@
 package com.example.smartwatchapp
 
 import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import java.lang.Math.round
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.math.roundToInt
-import kotlin.properties.Delegates
-
 
 
 class AvgActivity : MyActivity() {

@@ -54,17 +54,17 @@ abstract class MyActivity() : AppCompatActivity() {
         newText.y = 250F
         */
         newText.setTextColor(Color.WHITE);
-        newText.textSize = 20.0f
+        //newText.textSize = 20.0f
         newText.text = heartBeats.toString()
         newComment.text = comment(heartBeats)
     }
 
     private fun comment(heartBeat : Int) : String {
         if ((heartBeat) < 40) {
-            return "ATTENTION ! Votre rythme cardiaque est plutôt faible!"
+            return "ATTENTION !\n Votre rythme cardiaque est plutôt faible!"
         }
-        if ((heartBeat) > 150) {
-            return "ATTENTION ! Votre rythme cardiaque est plutôt élevé!"
+        if ((heartBeat) > 70) {
+            return "ATTENTION !\n Votre rythme cardiaque est plutôt élevé!"
         }
         return "Vous avez un rythme cardiaque normal."
     }

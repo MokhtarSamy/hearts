@@ -5,17 +5,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.health.services.client.data.DataType
-import androidx.health.services.client.data.ExerciseConfig
-import androidx.health.services.client.data.ExerciseGoal
-import androidx.health.services.client.data.ExerciseType
 import androidx.lifecycle.lifecycleScope
 import com.example.smartwatchapp.databinding.ActivityMainBinding
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -23,9 +18,6 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.lang.reflect.Array.set
-import java.sql.Time
-import java.util.*
 
 
 private lateinit var analytics: FirebaseAnalytics
