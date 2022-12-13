@@ -10,18 +10,16 @@
 
     <TextView
         android:id="@+id/textViewAvg"
-        android:layout_width="64dp"
-        android:layout_height="30dp"
+        android:layout_width="49dp"
+        android:layout_height="28dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="64dp"
         android:text=""
-        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintBottom_toTopOf="@+id/commentAvg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleAvg"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.166" />
 
     <TextView
         android:id="@+id/textViewTitleAvg"
@@ -52,7 +50,7 @@
         android:id="@+id/commentAvg"
         android:layout_width="178dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
@@ -60,5 +58,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="36dp"
+        android:layout_height="31dp"
+        app:layout_constraintBottom_toTopOf="@+id/commentAvg"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAvg"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleAvg"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@drawable/icons8_heart_with_pulse_64" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
