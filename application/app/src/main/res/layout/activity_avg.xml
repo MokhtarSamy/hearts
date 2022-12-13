@@ -33,12 +33,32 @@
         app:srcCompat="@drawable/baseline_arrow_circle_right_white_24" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="61dp"
-        android:layout_height="56dp"
-        app:srcCompat="@drawable/icons8_heart"
+        android:id="@+id/imageView3"
+        android:layout_width="64dp"
+        android:layout_height="61dp"
+        app:srcCompat="@drawable/icons8_heart__1_"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="66dp" />
+        tools:layout_editor_absoluteY="72dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="56dp"
+        android:layout_height="59dp"
+        app:srcCompat="@drawable/icons8_heart"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="133dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="55dp"
+        android:layout_height="49dp"
+        app:srcCompat="@drawable/icons8_heart_with_pulse_30"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="72dp"
+        tools:ignore="MissingConstraints" />
+
 
     <ImageView
         android:id="@+id/imageView2"
@@ -46,6 +66,8 @@
         android:layout_height="61dp"
         app:srcCompat="@drawable/icons8_heart__1_"
         tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="133dp" />
+        tools:layout_editor_absoluteY="133dp"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

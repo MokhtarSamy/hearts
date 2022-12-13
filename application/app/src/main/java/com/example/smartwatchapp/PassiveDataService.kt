@@ -23,7 +23,6 @@ class PassiveDataService : PassiveListenerService() {
     private val _heartRateBpm = MutableStateFlow(0.0)
 
     override fun onNewDataPointsReceived(dataPoints: DataPointContainer) {
-
         runBlocking {
             dataPoints.getData(DataType.HEART_RATE_BPM).latestHeartRate()?.let {
                 when(it){
@@ -39,7 +38,6 @@ class PassiveDataService : PassiveListenerService() {
                 var heure = formattedDate.split(' ')[1]
                 var moment = formattedDate.split(' ')[2]
                 val bpm = it
-
                     uploadRate(bpm, date, heure, moment)
 
                         average(date)
@@ -111,10 +109,6 @@ class PassiveDataService : PassiveListenerService() {
                 //Log.w(TAG, "Error getting documents $exception")
 
             }
-
-
-
-
 
     }
 

@@ -26,6 +26,11 @@
 
     <!-- Shown at startup. -->
 
+    <!-- Views to show when heart rate is available on the device. -->
+
+
+    <!-- Views to show when heart rate is not available on the device. -->
+
     <TextView
         android:id="@+id/app_name"
         android:layout_width="122dp"
@@ -37,23 +42,18 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="10dp"
+        android:layout_height="17dp"
         android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Views to show when heart rate is available on the device. -->
-
-
-    <!-- Views to show when heart rate is not available on the device. -->
 
     <TextView
         android:id="@+id/status_text"
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/enable_passive_data"
         tools:text="Status: AVAILABLE"
         tools:visibility="visible" />
 
@@ -83,77 +83,7 @@
         tools:visibility="visible" />
 
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/enable_passive_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="enable"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_name"
-        tools:checked="true"
-        tools:visibility="visible" />
-    <TextView
-        android:id="@+id/time_now"
-        android:layout_width="11dp"
-        android:layout_height="25dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textSize="40sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintLeft_toRightOf="@+id/heart"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/last_measured_value"
-        app:layout_constraintVertical_bias="0.478"
-        tools:text="1"
-        tools:visibility="visible" />
-
-
     <!-- Views to show when heart rate is not available on the device. -->
-    <ImageView
-        android:id="@+id/heart"
-        android:layout_width="28dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="12dp"
-        android:contentDescription="@null"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_measured_label"
-        app:srcCompat="@drawable/ic_heart"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/last_measured_value"
-        android:layout_width="67dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="12dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textSize="24sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/toDashboardButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/heart"
-        app:layout_constraintTop_toBottomOf="@+id/last_measured_label"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="60.0"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/broken_heart"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_broken_heart"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/not_available"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_name"
-        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/not_available"
@@ -165,6 +95,78 @@
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/broken_heart" />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/enable_passive_data"
+        android:layout_width="97dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:text="Enable"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name"
+        tools:checked="true"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/time_now"
+        android:layout_width="11dp"
+        android:layout_height="25dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textSize="40sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintLeft_toRightOf="@+id/heart"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/last_measured_value"
+        app:layout_constraintVertical_bias="0.166"
+        tools:text="1"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/heart"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@null"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_measured_label"
+        app:srcCompat="@drawable/ic_heart"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/last_measured_value"
+        android:layout_width="67dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/toAvgButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toEndOf="@+id/heart"
+        app:layout_constraintTop_toBottomOf="@+id/last_measured_label"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="60.0"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/broken_heart"
+        android:layout_width="12dp"
+        android:layout_height="20dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_broken_heart"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_name"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageButton
         android:id="@+id/toAvgButton"
@@ -172,10 +174,9 @@
         android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heart"
-        app:layout_constraintVertical_bias="0.238"
+        app:layout_constraintTop_toBottomOf="@+id/last_measured_label"
+        app:layout_constraintVertical_bias="0.927"
         app:srcCompat="?android:attr/actionModeFindDrawable"
         tools:ignore="MissingConstraints" />
 

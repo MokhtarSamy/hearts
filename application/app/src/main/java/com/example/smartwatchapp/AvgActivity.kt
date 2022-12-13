@@ -14,6 +14,24 @@ class AvgActivity : AppCompatActivity() {
 
     lateinit var newImage: ImageView
     lateinit var newText : TextView
+    lateinit var heartBeatsAvg : Number;
+
+
+    private fun getData(){
+
+        FirebaseUtils().fireStoreDatabase.collection("stats")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                querySnapshot.forEach { document ->
+                    Log.d(TAG, "Read document with ID ${document.id}")
+                    Log.d(TAG, "${document.get("avg")}");
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents $exception")
+            }
+
+    }
 
     private fun addImageView() {
         newImage = ImageView(this)
@@ -41,27 +59,11 @@ class AvgActivity : AppCompatActivity() {
 
     }
 
-    private fun readData(){
-
-        FirebaseUtils().fireStoreDatabase.collection("stats")
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                querySnapshot.forEach { document ->
-                    Log.d(TAG, "Read document with ID ${document.id}")
-                    Log.d(TAG, document.get("avg").toString())
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents $exception")
-            }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_avg);
 
-        addImageView()
+        //addImageView()
         addTextView()
 
         //bouton pour aller en arriere
