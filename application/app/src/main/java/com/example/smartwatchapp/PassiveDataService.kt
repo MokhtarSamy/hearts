@@ -110,10 +110,6 @@ class PassiveDataService : PassiveListenerService() {
 
             }
 
-
-
-
-
     }
 
     // upload data in the "stats" collection
