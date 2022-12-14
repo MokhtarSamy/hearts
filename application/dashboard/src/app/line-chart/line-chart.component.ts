@@ -21,8 +21,8 @@ export class LineChartComponent implements OnInit {
   constructor(firestore: Firestore) {
     const statsCollection = collection(firestore, 'stats');
     const q = query(statsCollection, orderBy('date', 'asc'));
+    //this.stats = collectionData(q).toPromise().then((data) => { });
     this.stats = collectionData(q);
-
 
     // 10 - 8 - 2 
 
@@ -40,14 +40,15 @@ export class LineChartComponent implements OnInit {
    
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
+    
     this.createChart();
   }
   public chart: any;
 
-  createChart(){
+  async createChart(){
 
-  
+    await this.delay(1000);
     this.chart = new Chart("MyChart", {
       type: 'line', //this denotes tha type of chart
 
@@ -77,5 +78,10 @@ export class LineChartComponent implements OnInit {
       
     });
   }
+
+
+async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
 }
