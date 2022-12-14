@@ -27,9 +27,6 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 //le client
-/**
- * Hilt module that provides singleton (application-scoped) objects.
- */
 @Module
 @InstallIn(SingletonComponent::class)
 class MainModule {

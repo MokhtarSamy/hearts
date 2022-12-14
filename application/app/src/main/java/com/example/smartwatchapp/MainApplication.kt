@@ -27,11 +27,6 @@ import com.example.smartwatchapp.PassiveDataRepository.Companion.PREFERENCES_FIL
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
-
-/**
- * Application class, needed to enable dependency injection with Hilt. It also is used to initialize
- * WorkManager.
- */
 @HiltAndroidApp
 class MainApplication : Application(), Configuration.Provider {
     @Inject
@@ -45,5 +40,4 @@ class MainApplication : Application(), Configuration.Provider {
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(PREFERENCES_FILENAME)
 
-
-const val TAG = "Passive Data Sample"
+const val TAG = "App: "

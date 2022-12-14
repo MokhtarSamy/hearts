@@ -22,11 +22,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 private lateinit var analytics: FirebaseAnalytics
 
-/**
- * Activity displaying the app UI. Notably, this binds data from [MainViewModel] to views on screen,
- * and performs the permission check when enabling measure data.
- */
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -74,7 +69,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Bind viewmodel state to the UI.
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect {
                 updateViewVisiblity(it)
@@ -104,12 +98,10 @@ class MainActivity : AppCompatActivity() {
         (uiState is UiState.Startup).let {
             binding.progress.isVisible = it
         }
-        // These views are visible when heart rate capability is not available.
         (uiState is UiState.HeartRateNotAvailable).let {
             binding.brokenHeart.isVisible = it
             binding.notAvailable.isVisible = it
         }
-        // These views are visible when the capability is available.
         (uiState is UiState.HeartRateAvailable).let {
             binding.enablePassiveData.isVisible = it
             binding.lastMeasuredLabel.isVisible = it

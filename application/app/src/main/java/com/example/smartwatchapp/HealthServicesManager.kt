@@ -28,9 +28,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-/**
- * Entry point for [HealthServicesClient] APIs, wrapping them in coroutine-friendly APIs.
- */
 class HealthServicesManager @Inject constructor(
     healthServicesClient: HealthServicesClient
 ) {
@@ -41,14 +38,6 @@ class HealthServicesManager @Inject constructor(
         val capabilities = client.getCapabilitiesAsync().await()
         return (DataType.HEART_RATE_BPM in capabilities.supportedDataTypesPassiveMonitoring)
     }
-
-    /**
-     * Returns a cold flow. When activated, the flow will register a callback for heart rate data
-     * and start to emit messages. When the consuming coroutine is cancelled, the measure callback
-     * is unregistered.
-     *
-     * [callbackFlow] is used to bridge between a callback-based API and Kotlin flows.
-     */
 
     suspend fun registerForHeartRateData() {
         val passiveListenerConfig = PassiveListenerConfig.builder()

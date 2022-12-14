@@ -34,10 +34,6 @@ import java.util.*
 import javax.inject.Inject
 
 //pour construire les vues
-
-/**
- * Holds most of the interaction logic and UI state for the app.
- */
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val healthServicesManager: HealthServicesManager,
@@ -56,8 +52,6 @@ class MainViewModel @Inject constructor(
     val latestHeartRate = repository.latestHeartRate
 
     init {
-        // Check that the device has the heart rate capability and progress to the next state
-        // accordingly.
         viewModelScope.launch {
             _uiState.value = if (healthServicesManager.hasHeartRateCapability()) {
                 UiState.HeartRateAvailable

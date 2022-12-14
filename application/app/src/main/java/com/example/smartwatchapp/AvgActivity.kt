@@ -11,7 +11,6 @@ class AvgActivity : MyActivity() {
     override var id = R.id.textViewAvg
     override var idComment = R.id.commentAvg
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_avg);

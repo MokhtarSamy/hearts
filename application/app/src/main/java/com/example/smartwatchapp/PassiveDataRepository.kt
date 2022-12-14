@@ -30,9 +30,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/**
- * Stores heart rate measurements and whether or not passive data is enabled.
- */
 class PassiveDataRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) {
@@ -66,11 +63,7 @@ class PassiveDataRepository @Inject constructor(
 
 fun List<SampleDataPoint<Double>>.latestHeartRate(): Double? {
     return this
-        // dataPoints can have multiple types (e.g. if the app is registered for multiple types).
         .filter { it.dataType == DataType.HEART_RATE_BPM }
-        // where accuracy information is available, only show readings that are of medium or
-        // high accuracy. (Where accuracy information isn't available, show the reading if it is
-        // a positive value).
         .filter {
             it.accuracy == null ||
                     setOf(
@@ -81,6 +74,5 @@ fun List<SampleDataPoint<Double>>.latestHeartRate(): Double? {
         .filter {
             it.value > 0
         }
-        // HEART_RATE_BPM is a SAMPLE type, so start and end times are the same.
         .maxByOrNull { it.timeDurationFromBoot }?.value
 }

@@ -34,10 +34,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-/**
- * Background data subscriptions are not persisted across device restarts. This receiver checks if
- * we enabled background data and, if so, registers again.
- */
 @AndroidEntryPoint
 class StartupReceiver : BroadcastReceiver() {
 
@@ -81,7 +77,6 @@ class RegisterForBackgroundDataWorker @AssistedInject constructor(
 
 
         override fun doWork(): Result {
-                Log.i(TAG, "Worker running")
                 runBlocking {
                         healthServicesManager.registerForHeartRateData()
                 }
