@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Firestore, collectionData, collection, DocumentData } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, DocumentData, query, orderBy} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { cO, M } from 'chart.js/dist/chunks/helpers.core';
 
@@ -19,8 +19,10 @@ export class LineChartComponent implements OnInit {
   maxs:number[] =  [];
 
   constructor(firestore: Firestore) {
-    const usersCollection = collection(firestore, 'stats');
-    this.stats = collectionData(usersCollection);
+    const statsCollection = collection(firestore, 'stats');
+    const q = query(statsCollection, orderBy('date', 'asc'));
+    this.stats = collectionData(q);
+
 
     // 10 - 8 - 2 
 
@@ -44,12 +46,13 @@ export class LineChartComponent implements OnInit {
   public chart: any;
 
   createChart(){
+
   
     this.chart = new Chart("MyChart", {
       type: 'line', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: this.dates, 
+        labels: this.dates,
 	       datasets: [
           {
             label: "Average rates",
@@ -70,7 +73,7 @@ export class LineChartComponent implements OnInit {
       },
       options: {
         aspectRatio:2.5
-      }
+      }      
       
     });
   }
