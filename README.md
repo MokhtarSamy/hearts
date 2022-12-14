@@ -9,7 +9,8 @@ Eva Radu, Mokhtar Samy, Mia Swery
 
 ### Lancement de l'application : 
 #### L'apk est disponible dans le dossier ```apk```
-
+* Pour installer l'apk sur l'emulateur, on doit désintaller l'application avec la commande adb suivante:
+* ```.\adb.exe uninstall "com.example.smartwatchapp"  ``` et après on glisse l'apk dans l'emulateur pour l'installer.
 #### Sans utiliser l'apk il est possible de déployer l'application depuis un ordinateur de la manière suivante : 
 * Connecter la montre sur le même wifi que celui utilisé par l'ordinateur
 * Dans les paramètres de la montre, activer le mode développeur sur la montre  
