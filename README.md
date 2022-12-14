@@ -14,14 +14,14 @@ Eva Radu, Mokhtar Samy, Mia Swery
 * Connecter la montre sur le même wifi que celui utilisé par l'ordinateur
 * Dans les paramètres de la montre, activer le mode développeur sur la montre  
 * Dans les paramètres de mode développeur, activer le mode débuggage avec le wifi
-* Depuis le terminal de l'ordinateur, se rendre dans son dossier AppData\Local\Android\Sdk\platform-tools
+* Depuis le terminal de l'ordinateur, se rendre dans son dossier ``` AppData\Local\Android\Sdk\platform-tools ```
 * Récupérer l'adresse ip disponible dans la section du mode débuggage avec le wifi sur la montre 
-* Lancer la commande suivante dans le terminal de l'ordinateur : .\adb.exe connect [ip de la montre]
-* Ouvrir le projet hearts/application/app/ dans Android Studio 
+* Lancer la commande suivante dans le terminal de l'ordinateur :    ``` .\adb.exe connect [ip de la montre] ```
+* Ouvrir le projet ``` hearts/application/app/ ``` dans Android Studio 
 * Lancer l'application
 
 ### Lancement du dashboard : 
 
-* Depuis un terminal, se rendre dans le dossier hearts/application/dashboard/
-* Lancer la commande suivante : ng serve 
+* Depuis un terminal, se rendre dans le dossier ``` hearts/application/dashboard/ ```
+* Lancer la commande suivante : ``` ng serve ```
 * Se rendre sur l'url donnée par la commande précédente
