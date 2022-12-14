@@ -7,7 +7,7 @@ Eva Radu, Mokhtar Samy, Mia Swery
 
 ## Etapes à réaliser pour lancer le projet : 
 
-### Lancement de l'application et du dashboard : 
+### Lancement de l'application : 
 #### L'apk est disponible dans le dossier suivant : ... 
 
 #### Sans utiliser l'apk il est possible de déployer l'application depuis un ordinateur de la manière suivante : 
