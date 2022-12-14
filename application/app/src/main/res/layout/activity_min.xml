@@ -11,28 +11,25 @@
         android:id="@+id/commentMin"
         android:layout_width="159dp"
         android:layout_height="61dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="48dp"
         android:ems="10"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
 
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMin"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewTitleMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/min"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.163" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewMin"
@@ -41,23 +38,23 @@
         android:text=""
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/commentMin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleMin"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="37dp"
-        android:layout_height="30dp"
+        android:layout_width="41dp"
+        android:layout_height="34dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/commentMin"
         app:layout_constraintEnd_toStartOf="@+id/textViewMin"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleMin"
-        app:layout_constraintVertical_bias="0.097"
+        app:layout_constraintVertical_bias="0.521"
         app:srcCompat="@drawable/icons8_heart_with_pulse_64" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,10 +60,10 @@ abstract class MyActivity() : AppCompatActivity() {
     }
 
     private fun comment(heartBeat : Int) : String {
-        if ((heartBeat) < 40) {
+        if ((heartBeat) < 50) {
             return "ATTENTION !\n Votre rythme cardiaque est plutôt faible!"
         }
-        if ((heartBeat) > 70) {
+        if ((heartBeat) > 100) {
             return "ATTENTION !\n Votre rythme cardiaque est plutôt élevé!"
         }
         return "Vous avez un rythme cardiaque normal."
