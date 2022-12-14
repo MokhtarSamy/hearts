@@ -13,13 +13,14 @@
         android:layout_width="49dp"
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
         android:text=""
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintBottom_toTopOf="@+id/commentAvg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitleAvg"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/textViewTitleAvg"
