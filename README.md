@@ -8,7 +8,7 @@ Eva Radu, Mokhtar Samy, Mia Swery
 ## Etapes à réaliser pour lancer le projet : 
 
 ### Lancement de l'application : 
-#### L'apk est disponible dans le dossier suivant : ... 
+#### L'apk est disponible dans le dossier ```apk```
 
 #### Sans utiliser l'apk il est possible de déployer l'application depuis un ordinateur de la manière suivante : 
 * Connecter la montre sur le même wifi que celui utilisé par l'ordinateur
